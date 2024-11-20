@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="labPU">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    
+    <!-- Add explicit class declarations for entities -->
+    <class>model.Player</class>
+    <class>model.Team</class>
+    <class>model.Match</class>
+    <class>model.Position</class>
+    <class>model.Stadium</class>
+    <class>model.Coach</class>
+    <class>model.Person</class>
+    
+    <properties>
+      <!-- Hibernate Configuration -->
+      <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hib24"/>
+      <property name="jakarta.persistence.jdbc.user" value="root"/>
+      <property name="jakarta.persistence.jdbc.password" value=""/>
+
+      <!-- Schema Generation -->
+      <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+      
+      <!-- Optional Hibernate Properties -->
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+  </persistence-unit>
+</persistence>

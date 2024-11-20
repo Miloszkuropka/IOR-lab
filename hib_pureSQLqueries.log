@@ -1,0 +1,267 @@
+
+    alter table COACHES 
+       drop 
+       foreign key FK_COACH_TEAM
+
+    alter table COACHES 
+       drop 
+       foreign key FKirex8rtcuj9okh5ltqy1l27c0
+
+    alter table MATCHES 
+       drop 
+       foreign key FK_MATCH_AWAY_TEAM
+
+    alter table MATCHES 
+       drop 
+       foreign key FK_MATCH_HOME_TEAM
+
+    alter table MATCHES 
+       drop 
+       foreign key FK_MATCH_STADIUM
+
+    alter table PLAYER_POSITION 
+       drop 
+       foreign key FK_POSITION_PLAYER
+
+    alter table PLAYER_POSITION 
+       drop 
+       foreign key FK_PLAYER_POSITION
+
+    alter table PLAYERS 
+       drop 
+       foreign key FK_PLAYER_TEAM
+
+    alter table PLAYERS 
+       drop 
+       foreign key FK_PLAYER_PERSON
+
+    alter table POSITIONS 
+       drop 
+       foreign key FK_POS_PLAYER
+
+    drop table if exists COACHES
+
+    drop table if exists MATCHES
+
+    drop table if exists PERSONS
+
+    drop table if exists PLAYER_POSITION
+
+    drop table if exists PLAYERS
+
+    drop table if exists POSITIONS
+
+    drop table if exists STADIUMS
+
+    drop table if exists TEAMS
+
+    create table COACHES (
+        PER_ID integer not null,
+        TEAM_ID integer,
+        primary key (PER_ID)
+    ) engine=InnoDB
+
+    create table MATCHES (
+        AWAY_TEAM_ID integer not null,
+        HOME_TEAM_ID integer not null,
+        MATCH_DATE date not null,
+        MATCH_ID integer not null auto_increment,
+        STADIUM_ID integer not null,
+        result varchar(10) not null,
+        primary key (MATCH_ID)
+    ) engine=InnoDB
+
+    create table PERSONS (
+        BIRTH_DATE date,
+        PER_ID integer not null auto_increment,
+        FIRST_NAME varchar(255) not null,
+        LAST_NAME varchar(255) not null,
+        primary key (PER_ID)
+    ) engine=InnoDB
+
+    create table PLAYER_POSITION (
+        PLAYER_ID integer not null,
+        POSITION_ID integer not null,
+        primary key (PLAYER_ID, POSITION_ID)
+    ) engine=InnoDB
+
+    create table PLAYERS (
+        PLAYER_ID integer not null,
+        TEAM_ID integer,
+        number integer not null,
+        position varchar(255),
+        primary key (PLAYER_ID)
+    ) engine=InnoDB
+
+    create table POSITIONS (
+        POS_ID integer not null,
+        TIME_PLAYED integer not null,
+        name varchar(50) not null,
+        primary key (POS_ID)
+    ) engine=InnoDB
+
+    create table STADIUMS (
+        STADIUM_ID integer not null auto_increment,
+        LOCATION varchar(100) not null,
+        NAME varchar(100) not null,
+        primary key (STADIUM_ID)
+    ) engine=InnoDB
+
+    create table TEAMS (
+        TEAM_ID integer not null auto_increment,
+        name varchar(30) not null,
+        country varchar(50) not null,
+        matches varbinary(255),
+        primary key (TEAM_ID)
+    ) engine=InnoDB
+
+    alter table COACHES 
+       add constraint FK_COACH_TEAM 
+       foreign key (TEAM_ID) 
+       references TEAMS (TEAM_ID)
+
+    alter table COACHES 
+       add constraint FKirex8rtcuj9okh5ltqy1l27c0 
+       foreign key (PER_ID) 
+       references PERSONS (PER_ID)
+
+    alter table MATCHES 
+       add constraint FK_MATCH_AWAY_TEAM 
+       foreign key (AWAY_TEAM_ID) 
+       references TEAMS (TEAM_ID)
+
+    alter table MATCHES 
+       add constraint FK_MATCH_HOME_TEAM 
+       foreign key (HOME_TEAM_ID) 
+       references TEAMS (TEAM_ID)
+
+    alter table MATCHES 
+       add constraint FK_MATCH_STADIUM 
+       foreign key (STADIUM_ID) 
+       references STADIUMS (STADIUM_ID)
+
+    alter table PLAYER_POSITION 
+       add constraint FK_POSITION_PLAYER 
+       foreign key (POSITION_ID) 
+       references POSITIONS (POS_ID)
+
+    alter table PLAYER_POSITION 
+       add constraint FK_PLAYER_POSITION 
+       foreign key (PLAYER_ID) 
+       references PLAYERS (PLAYER_ID)
+
+    alter table PLAYERS 
+       add constraint FK_PLAYER_TEAM 
+       foreign key (TEAM_ID) 
+       references TEAMS (TEAM_ID)
+
+    alter table PLAYERS 
+       add constraint FK_PLAYER_PERSON 
+       foreign key (PLAYER_ID) 
+       references PERSONS (PER_ID)
+
+    alter table POSITIONS 
+       add constraint FK_POS_PLAYER 
+       foreign key (POS_ID) 
+       references PLAYERS (PLAYER_ID)
+
+    insert 
+    into
+        PERSONS
+        (BIRTH_DATE, FIRST_NAME, LAST_NAME) 
+    values
+        (?, ?, ?)
+binding parameter (1:DATE) <- [null]
+binding parameter (2:VARCHAR) <- [John]
+binding parameter (3:VARCHAR) <- [Doe]
+
+    insert 
+    into
+        TEAMS
+        (country, matches, name) 
+    values
+        (?, ?, ?)
+binding parameter (1:VARCHAR) <- [Spain]
+binding parameter (2:VARBINARY) <- [[]]
+binding parameter (3:VARCHAR) <- [FC Barcelona]
+
+    insert 
+    into
+        TEAMS
+        (country, matches, name) 
+    values
+        (?, ?, ?)
+binding parameter (1:VARCHAR) <- [Germany]
+binding parameter (2:VARBINARY) <- [[]]
+binding parameter (3:VARCHAR) <- [Bayern Munich]
+
+    insert 
+    into
+        STADIUMS
+        (LOCATION, NAME) 
+    values
+        (?, ?)
+binding parameter (1:VARCHAR) <- [Barcelona]
+binding parameter (2:VARCHAR) <- [Camp Nou]
+
+    insert 
+    into
+        STADIUMS
+        (LOCATION, NAME) 
+    values
+        (?, ?)
+binding parameter (1:VARCHAR) <- [Munich]
+binding parameter (2:VARCHAR) <- [Allianz Arena]
+
+    insert 
+    into
+        PERSONS
+        (BIRTH_DATE, FIRST_NAME, LAST_NAME) 
+    values
+        (?, ?, ?)
+binding parameter (1:DATE) <- [null]
+binding parameter (2:VARCHAR) <- [Pep]
+binding parameter (3:VARCHAR) <- [Guardiola]
+
+    select
+        m1_0.MATCH_ID,
+        m1_0.AWAY_TEAM_ID,
+        m1_0.MATCH_DATE,
+        m1_0.HOME_TEAM_ID,
+        m1_0.result,
+        m1_0.STADIUM_ID 
+    from
+        MATCHES m1_0
+
+    select
+        p1_0.PER_ID,
+        case 
+            when p1_3.POS_ID is not null 
+                then 3 
+            when p1_2.PLAYER_ID is not null 
+                then 1 
+            when p1_1.PER_ID is not null 
+                then 2 
+            when p1_0.PER_ID is not null 
+                then 0 
+        end,
+        p1_0.BIRTH_DATE,
+        p1_0.FIRST_NAME,
+        p1_0.LAST_NAME,
+        p1_1.TEAM_ID,
+        p1_2.number,
+        p1_2.position,
+        p1_2.TEAM_ID,
+        p1_3.name,
+        p1_3.TIME_PLAYED 
+    from
+        PERSONS p1_0 
+    left join
+        COACHES p1_1 
+            on p1_0.PER_ID=p1_1.PER_ID 
+    left join
+        PLAYERS p1_2 
+            on p1_0.PER_ID=p1_2.PLAYER_ID 
+    left join
+        POSITIONS p1_3 
+            on p1_0.PER_ID=p1_3.POS_ID

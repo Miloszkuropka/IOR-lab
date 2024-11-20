@@ -1,0 +1,3 @@
+[TRACE]20 lis 2024 19:49:13 Insert Person transaction begin
+[ERROR]20 lis 2024 19:49:13 Transaction rollback: could not execute statement [Unknown column 'BIRTH_DATE' in 'field list'] [insert into PERSONS (BIRTH_DATE,FIRST_NAME,LAST_NAME) values (?,?,?)]
+[ERROR]20 lis 2024 19:49:13 Error during data load: could not execute statement [Unknown column 'BIRTH_DATE' in 'field list'] [insert into PERSONS (BIRTH_DATE,FIRST_NAME,LAST_NAME) values (?,?,?)]
